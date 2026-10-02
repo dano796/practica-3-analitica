@@ -16,13 +16,16 @@ Original file is located at
 
 # Cargamos librerías principales
 import pickle
+from pathlib import Path
 import pandas as pd
 import streamlit as st
 
 NOMBRE_APP = 'Vinalia'
 
 # Cargamos el modelo
-filename = 'modelo-cla-vinos-hiper.pkl' # Red neuronal hiperparametrizada (Hiperparametrizacion_GridSearch_Vinos_DOA_FTM.ipynb)
+# El .pkl está en la misma carpeta que este script; en el notebook (sin __file__) se busca en la carpeta de trabajo
+carpeta = Path(__file__).parent if '__file__' in globals() else Path('.')
+filename = carpeta / 'modelo-cla-vinos-hiper.pkl' # Red neuronal hiperparametrizada (Hiperparametrizacion_GridSearch_Vinos_DOA_FTM.ipynb)
 with open(filename, 'rb') as f:
     modelo, labelencoder, variables, min_max_scaler = pickle.load(f)
 
